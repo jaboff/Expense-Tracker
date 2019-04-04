@@ -4,11 +4,11 @@ class Expense {
     private String name;
     private double amount;
     private String category;
-    private Calendar date;
+    private Date date;
     private String note;
 
     //Constructor
-    Expense(String n, double a, String c, Calendar d, String t) {
+    Expense(String n, double a, String c, Date d, String t) {
         this.name = n;
         this.amount = a;
         this.category = c;
@@ -48,11 +48,11 @@ class Expense {
         this.note = note;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 }
