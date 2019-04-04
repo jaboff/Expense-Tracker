@@ -124,6 +124,7 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
     <option name="width" value="974" />
@@ -147,6 +148,12 @@
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
 >>>>>>> master
+=======
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-8" />
+    <option name="width" value="975" />
+    <option name="height" value="1058" />
+>>>>>>> d2ff20317671bbf55468195be1c416a01955cb20
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
