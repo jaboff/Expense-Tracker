@@ -1,6 +1,8 @@
 package sample;
 
 import java.util.*;
+import java.lang.*;
+
 class Expense {
 
     private String name;
