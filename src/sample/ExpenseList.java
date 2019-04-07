@@ -34,8 +34,28 @@ public class ExpenseList
     }
 
     Comparator<Expense> compareDate = new Comparator<Expense>() {
-        private int compare(Expense e1, Expense e2){
+        public int compare(Expense e1, Expense e2){
             return e1.getDate().compareTo(e2.getDate());
         }
+    };
+
+    public void sortByAmount(){
+        Collections.sort(list, compareAmount);
     }
+
+    Comparator<Expense> compareAmount = new Comparator<Expense>() {
+        public int compare(Expense e1, Expense e2){
+            return (new Double(e1.getAmount()).compareTo(new Double(e2.getAmount()));
+        }
+    };
+
+    public void sortByName(){
+        Collections.sort(list, compareName);
+    }
+
+    Comparator<Expense> compareName = new Comparator<Expense>() {
+        public int compare(Expense e1, Expense e2){
+            return e1.getName().compareTo(e2.getName());
+        }
+    };
 }
