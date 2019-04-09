@@ -10,7 +10,7 @@
   <tabs>
     <Tab text="View">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
                <children>
                   <ListView layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="575.0" />
                   <Button layoutX="118.0" layoutY="66.0" mnemonicParsing="false" onAction="#button1" text="Button" />

@@ -45,7 +45,7 @@ public class ExpenseList
 
     Comparator<Expense> compareAmount = new Comparator<Expense>() {
         public int compare(Expense e1, Expense e2){
-            return (new Double(e1.getAmount()).compareTo(new Double(e2.getAmount()));
+            return (new Double(e1.getAmount()).compareTo(new Double(e2.getAmount())));
         }
     };
 
@@ -58,4 +58,12 @@ public class ExpenseList
             return e1.getName().compareTo(e2.getName());
         }
     };
+
+    public void printList()
+    {
+        for(int i = 0; i < list.size(); i++)
+        {
+            System.out.println("" + list.get(i).getAmount());
+        }
+    }
 }
