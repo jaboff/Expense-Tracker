@@ -1,5 +1,8 @@
 package sample;
+<<<<<<< HEAD
 
+=======
+>>>>>>> ExpenseList
 import java.util.*;
 class ScheduledExpense extends Expense{
 

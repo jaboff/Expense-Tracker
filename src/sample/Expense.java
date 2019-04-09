@@ -12,12 +12,21 @@ class Expense {
     private String note;
 
     //Constructor
-    Expense(String n, double a, String c, Date d, String t) {
-        this.name = n;
-        this.amount = a;
-        this.category = c;
-        this.date = d;
-        this.note = t;
+    Expense(String name, double amount, String category, Date date, String note) {
+        this.name = name;
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
+    }
+
+    //Constructor with no note
+    Expense(String name, double amount, String category, Date date) {
+        this.name = name;
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = "";
     }
 
     public String getName() {
@@ -58,5 +67,10 @@ class Expense {
 
     public Date getDate() {
         return date;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ", " + this.getNote() + ")";
     }
 }
