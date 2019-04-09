@@ -68,4 +68,9 @@ class Expense {
     public Date getDate() {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ", " + this.getNote() + ")";
+    }
 }
