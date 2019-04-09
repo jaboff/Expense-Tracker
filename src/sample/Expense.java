@@ -69,6 +69,10 @@ class Expense {
         return date;
     }
 
+    public boolean isScheduled(){
+        return false;
+    }
+
     @Override
     public String toString() {
         return "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ", " + this.getNote() + ")";
