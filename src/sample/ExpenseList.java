@@ -71,7 +71,7 @@ public class ExpenseList {
                 retS += ", ";
             }
         }
-        retS += "}";
+        retS += " }";
         return retS;
     }
 }
