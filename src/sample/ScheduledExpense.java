@@ -36,4 +36,9 @@ class ScheduledExpense extends Expense{
     public void setFrequency(long frequency) {
         this.frequency = frequency;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " <- [Occurs every " + this.getFrequency() + " milliseconds]";
+    }
 }
