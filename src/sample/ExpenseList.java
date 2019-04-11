@@ -5,7 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ExpenseList {
     private static ArrayList<Expense> list = new ArrayList<Expense>();
-    private ArrayList<Expense> filteredList = new ArrayList<Expense>();
+    private static ArrayList<Expense> filteredList = new ArrayList<Expense>();
 
     public int getSize() {
         return list.size();
@@ -62,6 +62,10 @@ public class ExpenseList {
         return filteredList;
     }
 
+    public Expense getExpense(int index){
+        return this.getList().get(index);
+    }
+
     @Override
     public String toString() {
         String retS = "{ ";
@@ -73,6 +77,31 @@ public class ExpenseList {
         }
         retS += " }";
         return retS;
+    }
+
+    public void filterByCategory(String category)
+    {
+        filteredList = new ArrayList<Expense>();
+        for(int i = 0; i < this.getSize(); i++)
+        {
+            if(this.getExpense(i).getCategory().equals(category)) {
+                while (!(filteredList.add(this.getList().get(i)))) {
+                    filteredList.ensureCapacity(filteredList.size() * 2);
+                }
+            }
+        }
+    }
+
+    public void filterByDate(Date start, Date end){
+        filteredList = new ArrayList<Expense>();
+        for(int i = 0; i < this.getSize(); i++)
+        {
+            if(this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
+                while (!(filteredList.add(this.getList().get(i)))) {
+                    filteredList.ensureCapacity(filteredList.size() * 2);
+                }
+            }
+        }
     }
 }
 /*
