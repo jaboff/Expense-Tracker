@@ -1,6 +1,9 @@
-import java.util.*;
-class ScheduledExpense extends Expense{
+package sample;
 
+import java.util.*;
+
+class ScheduledExpense extends Expense {
+    
     private long frequency; //gap between occurrences in milliseconds
     private Date nextOccurrence; //next occurrence
 
