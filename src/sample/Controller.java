@@ -1,16 +1,16 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.*;
+import javafx.scene.control.Label;
 
 public class Controller
 {
-
     ExpenseList list = new ExpenseList();
 
     @FXML
-    public void button1()
-    {
+    private void handleButtonAction(ActionEvent event) {
         System.out.println("Hello");
     }
 
