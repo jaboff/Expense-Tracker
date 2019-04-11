@@ -55,3 +55,8 @@ crashlytics.properties
 crashlytics-build.properties
 
 # Created by .ignore support plugin (hsz.mobi)
+out/production/Expense Tracker/sample/sample.fxml
+.idea/workspace.xml
+out/production/Expense Tracker/sample/Controller.class
+out/production/Expense Tracker/sample/Main.class
+out/production/Expense Tracker/sample/MainWindow.fxml
