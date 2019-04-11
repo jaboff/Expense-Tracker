@@ -15,20 +15,15 @@
   <tabs>
     <Tab text="View">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-      </content>
-    </Tab>
-    <Tab text="Add">
-      <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView layoutX="13.0" layoutY="13.0" prefHeight="341.0" prefWidth="575.0" />
+                  <ListView layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="575.0" />
                   <Button fx:id="button" layoutX="508.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Camera" />
                   <Button fx:id="button1" layoutX="447.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Clear" />
                   <Button fx:id="button11" layoutX="387.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Save" />
                   <Label layoutX="24.0" layoutY="65.0" text="Name:" />
                   <Label layoutX="23.0" layoutY="103.0" text="Category:" />
-                  <Label layoutX="27.0" layoutY="139.0" text="Cost:" />
+                  <Label layoutX="25.0" layoutY="139.0" text="Cost:" />
                   <Label layoutX="25.0" layoutY="175.0" text="Date:" />
                   <Label layoutX="23.0" layoutY="205.0" text="Recurring Expense?" />
                   <Label layoutX="41.0" layoutY="239.0" text="Frequency:" />
@@ -41,6 +36,11 @@
                   <TextField layoutX="121.0" layoutY="234.0" />
                   <TextField layoutX="121.0" layoutY="269.0" />
                </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Add">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
     </Tab>
       <Tab text="Graphics">
