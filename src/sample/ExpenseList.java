@@ -28,6 +28,10 @@ public class ExpenseList {
         Collections.sort(list, compareDate);
     }
 
+    public void sortByDateR() {
+        Collections.sort(list, compareDate.reversed());
+    }
+
     Comparator<Expense> compareDate = new Comparator<Expense>() {
         public int compare(Expense e1, Expense e2) {
             return e1.getDate().compareTo(e2.getDate());
@@ -38,6 +42,10 @@ public class ExpenseList {
         Collections.sort(list, compareAmount);
     }
 
+    public void sortByAmountR() {
+        Collections.sort(list, compareAmount.reversed());
+    }
+
     Comparator<Expense> compareAmount = new Comparator<Expense>() {
         public int compare(Expense e1, Expense e2) {
             return (new Double(e1.getAmount()).compareTo(new Double(e2.getAmount())));
@@ -46,6 +54,10 @@ public class ExpenseList {
 
     public void sortByName() {
         Collections.sort(list, compareName);
+    }
+
+    public void sortByNameR() {
+        Collections.sort(list, compareName.reversed());
     }
 
     Comparator<Expense> compareName = new Comparator<Expense>() {
@@ -102,6 +114,30 @@ public class ExpenseList {
                 }
             }
         }
+    }
+
+    public void fSortByName() {
+        Collections.sort(filteredList, compareName);
+    }
+
+    public void fSortByDate() {
+        Collections.sort(filteredList, compareAmount);
+    }
+
+    public void fSortByAmount() {
+        Collections.sort(filteredList, compareAmount);
+    }
+
+    public void fSortByNameR() {
+        Collections.sort(filteredList, compareName.reversed());
+    }
+
+    public void fSortByDateR() {
+        Collections.sort(filteredList, compareAmount.reversed());
+    }
+
+    public void fSortByAmountR() {
+        Collections.sort(filteredList, compareAmount.reversed());
     }
 }
 /*
