@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ExpenseList {
     private static ArrayList<Expense> list = new ArrayList<Expense>();
     private ArrayList<Expense> filteredList = new ArrayList<Expense>();
+    private ArrayList<String> categoryList = new ArrayList<>();
 
     public int getSize() {
         return list.size();
@@ -19,6 +20,8 @@ public class ExpenseList {
             return this.addExpense(e);
         }
     }
+
+
 
     public boolean removeExpense(Expense e) {
         return list.remove(e);

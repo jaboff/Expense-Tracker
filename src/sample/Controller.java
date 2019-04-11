@@ -4,14 +4,37 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import org.controlsfx.control.textfield.TextFields;
 
 public class Controller
 {
     ExpenseList list = new ExpenseList();
 
+
+    @FXML
+    private TextField add_nameInput;
+    @FXML
+    private TextField add_categoryInput;
+    @FXML
+    private TextField add_costInput;
+    @FXML
+    private DatePicker add_dateInput;
+    @FXML
+    private TextField add_frequencyInput;
+    @FXML
+    private DatePicker add_stopDateInput;
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("Hello");
+    }
+
+    public void categoryInput()
+    {
+        String[] possibleWords = {"Hello", "John", "Kevin"};
+
+        TextFields.bindAutoCompletion(add_categoryInput, possibleWords);
     }
 
     public void testSort()
@@ -26,7 +49,7 @@ public class Controller
 
         list.sortByAmount();
 
-        list.printList();
+
     }
 
     public void viewPaneController()
