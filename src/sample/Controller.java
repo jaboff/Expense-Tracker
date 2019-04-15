@@ -26,7 +26,7 @@ public class Controller
     @FXML    private TableColumn<Expense, String> view_noteCol;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
         //set up the columns in the table
         view_nameCol.setCellValueFactory(new PropertyValueFactory<Expense, String>("name"));
         view_amountCol.setCellValueFactory(new PropertyValueFactory<Expense, Double>("amount"));
@@ -38,10 +38,13 @@ public class Controller
         view_tableView.setItems(getExpenses());
     }
 
-    public ObservableList<Expense>  getExpenses()
+    public ObservableList<Expense>  getExpenses(boolean getFiltered)
     {
         ObservableList<Expense> expenses = new ObservableArray<sample.Expense>();
-        expenses.addAll(expenseList.getFilteredList());
+        if(getFiltered)
+            expenses.addAll(expenseList.getFilteredList());
+        else
+            expenses.addAll(expenseList.getList());
         return expenses;
     }
 
