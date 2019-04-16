@@ -21,7 +21,10 @@ public class ExpenseList {
         }
     }
 
-
+    public Expense getExpense(int index)
+    {
+        return list.get(index);
+    }
 
     public boolean removeExpense(Expense e) {
         return list.remove(e);
