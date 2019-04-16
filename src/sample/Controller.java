@@ -3,6 +3,8 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.*;
 import org.controlsfx.control.textfield.TextFields;
@@ -49,7 +51,7 @@ public class Controller
             else
             {
                 Expense newExpense = new Expense(add_nameInput.getText(), Double.parseDouble(add_costInput.getText()), add_categoryInput.getText(),
-                        newDate, add_noteInput.getText(), Integer.parseInt(add_frequencyInput.getText()));
+                        newDate, add_noteInput.getText(), TimeUnit.DAYS.toMillis(Long.parseLong(add_frequencyInput.getText())));
                 list.addExpense(newExpense);
                 possibleWords.add(add_categoryInput.getText());
 
