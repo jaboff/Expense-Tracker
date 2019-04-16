@@ -140,13 +140,31 @@ public class ExpenseList {
     public void filterByRecurring(){
         filteredList = new ArrayList<Expense>();
         for (int i = 0; i < this.getSize(); i++) {
-            if (this.getExpense(i).isSchedued()) {
+            if (this.getExpense(i).isScheduled()) {
                 while (!(filteredList.add(this.getList().get(i)))) {
                     filteredList.ensureCapacity(filteredList.size() * 2);
                 }
             }
         }
     }
+
+    public void addToBothLists(Expense e) {
+        list.add(e);
+        filteredList.add(e);
+    }
+
+  /*
+  public void updateScheduledExpenses(){
+        Expense e;
+        this.filterByRecurring();
+        for(int i = 0; i < filteredList.size(); i++){
+            if(filteredList.get(i).needsUpdate()){
+                e = new Expense(filteredList.get(i).getName(),filteredList.get(i).getAmount(),filteredList.get(i).getCategory(),filteredList.get(i).getDate(),filteredList.get(i).getNote(),filteredList.get(i).getFrequency());
+                this.addToBothLists(e);
+            }
+        }
+    }
+    */
 /*
     public static void main(String[] args) {
         Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
