@@ -104,9 +104,8 @@ public class ExpenseList {
 
     public void filterByDate(Date start, Date end) {
         filteredList = new ArrayList<Expense>();
-        for(int i = 0; i < this.getSize(); i++)
-        {
-            if(this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
                 while (!(filteredList.add(this.getList().get(i)))) {
                     filteredList.ensureCapacity(filteredList.size() * 2);
                 }
@@ -138,6 +137,17 @@ public class ExpenseList {
         Collections.sort(filteredList, compareAmount.reversed());
     }
 
+    public void filterByRecurring() {
+        filteredList = new ArrayList<Expense>();
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).isSchedued()) {
+                while (!(filteredList.add(this.getList().get(i)))) {
+                    filteredList.ensureCapacity(filteredList.size() * 2);
+                }
+            }
+        }
+    }
+
     public double calculateTotalExpenses() {
         double total_cost = 0.00; //initializes total cost as $0.00
 
@@ -147,8 +157,7 @@ public class ExpenseList {
 
         return total_cost; //returns total amount
     }
-}
-
+    
 /*
     public static void main(String[] args) {
         Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
@@ -161,4 +170,5 @@ public class ExpenseList {
         list.addExpense(e3);
         System.out.println(list.toString());
     }
-*/
+ */
+}
