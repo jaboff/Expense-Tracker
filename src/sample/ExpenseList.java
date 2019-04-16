@@ -74,7 +74,7 @@ public class ExpenseList {
         return filteredList;
     }
 
-    public Expense getExpense(int index){
+    public Expense getExpense(int index) {
         return this.getList().get(index);
     }
 
@@ -91,12 +91,10 @@ public class ExpenseList {
         return retS;
     }
 
-    public void filterByCategory(String category)
-    {
+    public void filterByCategory(String category) {
         filteredList = new ArrayList<Expense>();
-        for(int i = 0; i < this.getSize(); i++)
-        {
-            if(this.getExpense(i).getCategory().equals(category)) {
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).getCategory().equals(category)) {
                 while (!(filteredList.add(this.getList().get(i)))) {
                     filteredList.ensureCapacity(filteredList.size() * 2);
                 }
@@ -104,11 +102,10 @@ public class ExpenseList {
         }
     }
 
-    public void filterByDate(Date start, Date end){
+    public void filterByDate(Date start, Date end) {
         filteredList = new ArrayList<Expense>();
-        for(int i = 0; i < this.getSize(); i++)
-        {
-            if(this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
                 while (!(filteredList.add(this.getList().get(i)))) {
                     filteredList.ensureCapacity(filteredList.size() * 2);
                 }
@@ -139,7 +136,17 @@ public class ExpenseList {
     public void fSortByAmountR() {
         Collections.sort(filteredList, compareAmount.reversed());
     }
-}
+
+    public void filterByRecurring(){
+        filteredList = new ArrayList<Expense>();
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).isSchedued()) {
+                while (!(filteredList.add(this.getList().get(i)))) {
+                    filteredList.ensureCapacity(filteredList.size() * 2);
+                }
+            }
+        }
+    }
 /*
     public static void main(String[] args) {
         Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
@@ -153,3 +160,4 @@ public class ExpenseList {
         System.out.println(list.toString());
     }
  */
+}
