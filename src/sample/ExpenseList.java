@@ -152,4 +152,10 @@ public class ExpenseList {
         list.add(e);
         filteredList.add(e);
     }
+
+    public void changeFromRecurring(Expense e){
+        int index = list.indexOf(e);
+        e.setScheduled(false);
+        list.add(e, index);
+    }
 }
