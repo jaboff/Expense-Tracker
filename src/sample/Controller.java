@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.net.URL;
 import java.sql.Date;
@@ -25,55 +28,39 @@ public class Controller implements Initializable
     @FXML
     public void updateTable()
     {
-        System.out.println("Table is updating!!!!");
-        //ObservableList<Expense> expenses = new ObservableList<Expense>();
-        //view_tableView.setItems(new ObservableList<Expense>());
+        // Create columns for each expense entry
+        TableColumn<Expense, String> nameCol = new TableColumn<Expense, String>("Name");
+        TableColumn<Expense, Double> amountCol = new TableColumn<Expense, Double>("Amount");
+        TableColumn<Expense, String> categoryCol = new TableColumn<Expense, String>("Category");
+        TableColumn<Expense, String> dateCol = new TableColumn<Expense, String>("Date");
 
-        // Create column UserName (Data type of String).
-        TableColumn<Expense, String> nameCol //
-                = new TableColumn<Expense, String>("Name");
+        // Set the factory values for each entry
+        // These will ensure that the each field in an expense will map to the correct column
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        // Create column Email (Data type of String).
-        TableColumn<Expense, String> categoryCol//
-                = new TableColumn<Expense, String>("Category");
+        // Display the column on the table
+        view_tableView.getColumns().addAll(nameCol, amountCol, categoryCol, dateCol);
 
-        // Create column FullName (Data type of String).
-        TableColumn<Expense, String> dateCol//
-                = new TableColumn<Expense, String>("Date");
 
-        // Create 2 sub column for FullName.
-        TableColumn<Expense, String> startDateCol //
-                = new TableColumn<Expense, String>("Start");
-
-        TableColumn<Expense, String> endDateCol //
-                = new TableColumn<Expense, String>("End");
-
-        // Add sub columns to the FullName
-        dateCol.getColumns().addAll(startDateCol, endDateCol);
-
-        // Active Column
-        TableColumn<Expense, Boolean> priceCol
-                = new TableColumn<Expense, Boolean>("Price");
-
-        view_tableView.getColumns().addAll(nameCol, categoryCol, dateCol, priceCol);
+        // Create a sample expense list and populate it with data
+        //* Then add that sample data to the table for testing
+        ExpenseList exList = new ExpenseList();
+        for (int i = 0; i < 10; i++)
+        {
+            Expense randExpense = new Expense("Item"+i, i, "Grocery", Date.valueOf(LocalDate.now()), "A note");
+            exList.addExpense(randExpense);
+        }
+        view_tableView.setItems(ExpenseList.getList());
+        //*/
     }
-
-    /*
-    public ObservableList<Expense>  getExpenses(boolean getFiltered)
-    {
-        ObservableList<Expense> expenses = new ObservableArray<sample.Expense>();
-        if(getFiltered)
-            expenses.addAll(expenseList.getFilteredList());
-        else
-            expenses.addAll(expenseList.getList());
-        return expenses;
-    }
-    //*/
-
 
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void handleButtonAction(ActionEvent event)
+    {
         System.out.println("Hello");
     }
 }
