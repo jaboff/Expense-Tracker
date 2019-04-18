@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -60,12 +61,13 @@ public class Controller
     @FXML   private BarChart<?,?> expenseChart;
     @FXML   private CategoryAxis x;
     @FXML   private NumberAxis y;
+    @FXML   private Text total;
 
     @FXML public void initialize(){
-        setUpChartByCategory(false);
+        setUpChartByCategory();
     }
 
-    private void setUpChartByCategory(boolean filtered){
+    private void setUpChartByCategory(){
         XYChart.Series set1 = new XYChart.Series();
         Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
         Expense e2 = new Expense("Banana", 2.99, "Food", new Date(), "Fruit Salad");
@@ -76,6 +78,7 @@ public class Controller
         expenseList.addExpense(e3);
         expenseList.addExpense(e4);
         ArrayList<String> categoriesAlreadyComputed = new ArrayList<>();
+        double sumofsums = 0;
         for(int o = 0; o < expenseList.getSize(); o++)
         {
             if (!(categoriesAlreadyComputed.contains(expenseList.getExpense(o).getCategory()))){
@@ -84,11 +87,13 @@ public class Controller
                 for (int m = 0; m < expenseList.getFilteredList().size(); m++){
                     sum += expenseList.getFilteredList().get(m).getAmount();
                 }
+                sumofsums += sum;
                 set1.getData().add(new XYChart.Data(expenseList.getExpense(o).getCategory(), sum));
                 categoriesAlreadyComputed.add(expenseList.getExpense(o).getCategory());
             }
 
         }
+        total.setText("$" + sumofsums);
         expenseChart.getData().addAll(set1);
     }
 }
