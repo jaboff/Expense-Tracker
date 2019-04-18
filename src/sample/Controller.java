@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
+import javafx.animation.*;
+import java.time.*;
 import javafx.scene.control.Label;
+import javafx.event.*;
 import javafx.scene.control.*;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -34,8 +36,14 @@ public class Controller
     private DatePicker add_stopDateInput;
     @FXML
     private CheckBox add_isRecurring;
+    @FXML
+    private Label add_successfulAdd;
+    @FXML
+    private Label add_unSuccessfulAdd;
 
     ArrayList<String> possibleWords = new ArrayList<String>();
+
+    Timer timer = new Timer();
 
     @FXML
     private void saveButtonAction(ActionEvent event)
@@ -47,6 +55,13 @@ public class Controller
             {
                 Expense newExpense = new Expense(add_nameInput.getText(), Double.parseDouble(add_costInput.getText()), add_categoryInput.getText(),
                         newDate, add_noteInput.getText());
+
+                list.addExpense(newExpense);
+                possibleWords.add(add_categoryInput.getText());
+
+                add_successfulAdd.setVisible(true);
+                timer.schedule(displaySuccessful, 3000);
+                System.out.println("" + list.toString());
             }
             else
             {
@@ -55,10 +70,39 @@ public class Controller
                 list.addExpense(newExpense);
                 possibleWords.add(add_categoryInput.getText());
 
+                add_unSuccessfulAdd.setVisible(false);
+                add_successfulAdd.setVisible(true);
+                //timer.schedule(displaySuccessful, 5001);
                 System.out.println("" + list.toString());
             }
         }
+        else
+        {
+            add_successfulAdd.setVisible(false);
+            add_unSuccessfulAdd.setVisible(true);
+        }
     }
+
+    public void myMethod(final String myString) {
+
+        ScheduledExecutorService scheduledExecutorService =
+                Executors.newScheduledThreadPool(5);
+
+        myExecutor.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(myString);
+            }
+        }, 0, 10000, TimeUnit.MILLISECONDS);
+    }
+
+    TimerTask displaySuccessful = new TimerTask()
+    {
+        public void run()
+        {
+            add_successfulAdd.setVisible(false);
+        }
+    };
 
     private boolean isThereEmptyFields()
     {
@@ -91,7 +135,7 @@ public class Controller
             emptyCostAlert.show();
             return true;
         }
-        if(add_frequencyInput.getText() == null || add_costInput.getText().trim().isEmpty())
+        if(add_isRecurring.isSelected() && add_frequencyInput.getText() == null || add_costInput.getText().trim().isEmpty())
         {
             Alert emptyCostAlert = new Alert(Alert.AlertType.WARNING);
             emptyCostAlert.setContentText("Please enter frequency");
