@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
+import javafx.animation.*;
+import java.time.*;
 import javafx.scene.control.Label;
+import javafx.event.*;
 import javafx.scene.control.*;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -34,30 +36,77 @@ public class Controller
     private DatePicker add_stopDateInput;
     @FXML
     private CheckBox add_isRecurring;
+    @FXML
+    private Label add_successfulAdd;
+    @FXML
+    private Label add_unSuccessfulAdd;
 
     ArrayList<String> possibleWords = new ArrayList<String>();
+
+    Timer timer = new Timer();
 
     @FXML
     private void saveButtonAction(ActionEvent event)
     {
-        if(!isThereEmptyFields())
+        if(!isThereEmptyFields() && isThereValidFields())
         {
             Date newDate = new Date(add_dateInput.getValue().toEpochDay());
             if(!add_isRecurring.isSelected())
             {
                 Expense newExpense = new Expense(add_nameInput.getText(), Double.parseDouble(add_costInput.getText()), add_categoryInput.getText(),
                         newDate, add_noteInput.getText());
+
+                list.addExpense(newExpense);
+                possibleWords.add(add_categoryInput.getText());
+
+                add_successfulAdd.setVisible(true);
+                System.out.println("" + list.toString());
             }
             else
             {
                 Expense newExpense = new Expense(add_nameInput.getText(), Double.parseDouble(add_costInput.getText()), add_categoryInput.getText(),
                         newDate, add_noteInput.getText(), TimeUnit.DAYS.toMillis(Long.parseLong(add_frequencyInput.getText())));
+
                 list.addExpense(newExpense);
                 possibleWords.add(add_categoryInput.getText());
 
+                add_unSuccessfulAdd.setVisible(false);
+                add_successfulAdd.setVisible(true);
+                //timer.schedule(displaySuccessful, 5001);
                 System.out.println("" + list.toString());
             }
         }
+        else
+        {
+            add_successfulAdd.setVisible(false);
+            add_unSuccessfulAdd.setVisible(true);
+        }
+    }
+
+    private boolean isThereValidFields()
+    {
+        double returnVal = 0;
+        try {
+            Double.parseDouble(add_costInput.getText());
+        }
+        catch(Exception e) {
+            //  Block of code to handle errors
+            Alert emptyCostAlert = new Alert(Alert.AlertType.WARNING);
+            emptyCostAlert.setContentText("Please enter valid numbers for cost and frequency");
+            emptyCostAlert.show();
+            return false;
+        }
+        try {
+            Double.parseDouble(add_frequencyInput.getText());
+        }
+        catch(Exception e) {
+            //  Block of code to handle errors
+            Alert emptyCostAlert = new Alert(Alert.AlertType.WARNING);
+            emptyCostAlert.setContentText("Please enter valid numbers for cost and frequency");
+            emptyCostAlert.show();
+            return false;
+        }
+        return true;
     }
 
     private boolean isThereEmptyFields()
@@ -91,7 +140,7 @@ public class Controller
             emptyCostAlert.show();
             return true;
         }
-        if(add_frequencyInput.getText() == null || add_costInput.getText().trim().isEmpty())
+        if(add_isRecurring.isSelected() && add_frequencyInput.getText() == null || add_costInput.getText().trim().isEmpty())
         {
             Alert emptyCostAlert = new Alert(Alert.AlertType.WARNING);
             emptyCostAlert.setContentText("Please enter frequency");
@@ -104,6 +153,19 @@ public class Controller
         }
 
         return false;
+    }
+
+    @FXML
+    private void toggleFrequency()
+    {
+        if(add_isRecurring.isSelected())
+        {
+            add_frequencyInput.setVisible(true);
+        }
+        else
+        {
+            add_frequencyInput.setVisible(false);
+        }
     }
 
     @FXML
