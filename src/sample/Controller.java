@@ -34,6 +34,12 @@ public class Controller implements Initializable
 {
     ExpenseList expenseList = new ExpenseList();
 
+    @FXML TableColumn<Expense, String> view_nameColumn;
+    @FXML TableColumn<Expense, Double> view_amountColumn;
+    @FXML TableColumn<Expense, String> view_categoryColumn;
+    @FXML TableColumn<Expense, String> view_dateColumn;
+    @FXML TableColumn<Expense, String> view_noteColumn;
+
     @FXML
     private TableView<Expense> view_tableView;
 
@@ -46,21 +52,23 @@ public class Controller implements Initializable
     @FXML
     public void updateTable()
     {
-        // Create columns for each expense entry
+        /* Create columns for each expense entry
         TableColumn<Expense, String> nameCol = new TableColumn<Expense, String>("Name");
         TableColumn<Expense, Double> amountCol = new TableColumn<Expense, Double>("Amount");
         TableColumn<Expense, String> categoryCol = new TableColumn<Expense, String>("Category");
         TableColumn<Expense, String> dateCol = new TableColumn<Expense, String>("Date");
+        //*/
 
         // Set the factory values for each entry
         // These will ensure that the each field in an expense will map to the correct column
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        amountCol.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        view_nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        view_amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        view_categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        view_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        view_noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         // Display the column on the table
-        view_tableView.getColumns().addAll(nameCol, amountCol, categoryCol, dateCol);
+        //view_tableView.getColumns().addAll(nameCol, amountCol, categoryCol, dateCol);
 
 
         // Create a sample expense list and populate it with data
@@ -71,6 +79,7 @@ public class Controller implements Initializable
             Expense randExpense = new Expense("Item"+i, i, "Grocery", new Date(), "A note");
             exList.addExpense(randExpense);
         }
+
         view_tableView.setItems(ExpenseList.getList());
         //*/
     }
