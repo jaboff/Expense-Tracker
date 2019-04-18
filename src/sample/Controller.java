@@ -96,6 +96,7 @@ public class Controller
                 e = new Expense(expenseList.getFilteredList().get(i).getName(),expenseList.getFilteredList().get(i).getAmount(),expenseList.getFilteredList().get(i).getCategory(),expenseList.getFilteredList().get(i).getNextOccurrence(),expenseList.getFilteredList().get(i).getNote(),expenseList.getFilteredList().get(i).getFrequency());
                 //Need function that puts lets user confirm stuff
 
+                expenseList.changeFromRecurring(expenseList.getFilteredList().get(i));
             }
         }
     }
