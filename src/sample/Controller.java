@@ -3,11 +3,15 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import javafx.animation.*;
 import java.time.*;
 import javafx.scene.control.Label;
 import javafx.event.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import javafx.scene.control.*;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -184,21 +188,31 @@ public class Controller
         TextFields.bindAutoCompletion(add_categoryInput, possibleWords);
     }
 
-    public void testSort()
-    {
-        /*
-        Date today = new Date();
-        Expense exp1 = new Expense("Taco1", 5.46, "Food", today,"");
-        Expense exp2 = new Expense("Cheese", 34.46, "Food", today,"");
-        Expense exp3 = new Expense("Apple", 67.46, "Food", today,"");
-        Expense exp4 = new Expense("Shoe", 12.46, "Clothes", today,"");
-        Expense exp5 = new Expense("Pie", 3.46, "Food", today,"");
-        list.addExpense(exp1); list.addExpense(exp2); list.addExpense(exp3); list.addExpense(exp4); list.addExpense(exp5);
-        */
-        list.sortByAmount();
-
-
+    private void updateScheduledExpenses(){
+        Expense e;
+        list.filterByRecurring();
+        for(int i = 0; i < list.getFilteredList().size(); i++){
+            if(list.getFilteredList().get(i).needsUpdate()){
+                e = new Expense(list.getFilteredList().get(i).getName(),list.getFilteredList().get(i).getAmount(),
+                        list.getFilteredList().get(i).getCategory(),list.getFilteredList().get(i).getNextOccurrence(),
+                        list.getFilteredList().get(i).getNote(),list.getFilteredList().get(i).getFrequency());
+                //Need function that puts lets user confirm stuff
+                list.addToBothLists(e);
+            }
+        }
     }
+
+    private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
+
+    public void startUpdateFiveSeconds(){
+
+        final Runnable updater = new Runnable(){
+            public void run(){
+                //Stuff we want to happen every 5 seconds goes here
+                updateScheduledExpenses();
+            }};
+            final ScheduledFuture<?> updaterHandle = scheduler.scheduleAtFixedRate(updater, 5, 5, SECONDS);
+        }
 
     public void viewPaneController()
     {
