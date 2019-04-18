@@ -3,7 +3,7 @@ package sample;
 import java.util.*;
 import java.lang.*;
 
-class Expense {
+public class Expense {
 
     private String name;
     private double amount;
