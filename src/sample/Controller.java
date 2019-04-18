@@ -79,14 +79,13 @@ public class Controller
     private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
 
     public void startUpdateFiveSeconds(){
-        scheduleTester = 0;
         final Runnable updater = new Runnable(){
             public void run(){
                 //Stuff we want to happen every 5 seconds goes here
                 updateScheduledExpenses();
-            };
-            final ScheduledFuture<?> updaterHandle = scheduler.scheduleAtFixedRate(updater, 5, 5, SECONDS);
-        }
+            }
+        };
+        final ScheduledFuture<?> updaterHandle = scheduler.scheduleAtFixedRate(updater, 5, 5, SECONDS);
     }
 
     private void updateScheduledExpenses(){
