@@ -1,23 +1,21 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ExpenseList {
-    private static ArrayList<Expense> list = new ArrayList<Expense>();
+    private static ObservableList<Expense> list = FXCollections.observableArrayList();
     private static ArrayList<Expense> filteredList = new ArrayList<Expense>();
 
     public int getSize() {
         return list.size();
     }
 
-    public boolean addExpense(Expense e) {
-        if (list.add(e)) {
-            return true;
-        } else {
-            list.ensureCapacity(2 * list.size());
-            return this.addExpense(e);
-        }
+    public boolean addExpense(Expense expense) {
+        return list.add(expense);
     }
 
     public boolean removeExpense(Expense e) {
@@ -66,7 +64,7 @@ public class ExpenseList {
         }
     };
 
-    public static ArrayList<Expense> getList() {
+    public static ObservableList<Expense> getList() {
         return list;
     }
 
