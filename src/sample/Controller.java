@@ -78,14 +78,26 @@ public class Controller
 
     private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
 
-    public void updateFiveSeconds(){
+    public void startUpdateFiveSeconds(){
         scheduleTester = 0;
         final Runnable updater = new Runnable(){
             public void run(){
                 //Stuff we want to happen every 5 seconds goes here
-                
+                updateScheduledExpenses();
             };
             final ScheduledFuture<?> updaterHandle = scheduler.scheduleAtFixedRate(updater, 5, 5, SECONDS);
+        }
+    }
+
+    private void updateScheduledExpenses(){
+        Expense e;
+        expenseList.filterByRecurring();
+        for(int i = 0; i < expenseList.getFilteredList().size(); i++){
+            if(expenseList.getFilteredList().get(i).needsUpdate()){
+                e = new Expense(expenseList.getFilteredList().get(i).getName(),expenseList.getFilteredList().get(i).getAmount(),expenseList.getFilteredList().get(i).getCategory(),expenseList.getFilteredList().get(i).getNextOccurrence(),expenseList.getFilteredList().get(i).getNote(),expenseList.getFilteredList().get(i).getFrequency());
+                //Need function that puts lets user confirm stuff
+
+            }
         }
     }
 }
