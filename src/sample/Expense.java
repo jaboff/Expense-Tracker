@@ -26,18 +26,6 @@ class Expense {
         this.nextOccurrence = null;
     }
 
-    //Constructor for scheduled
-    Expense(String name, double amount, String category, Date date, String note, long frequency) {
-        this.name = name;
-        this.amount = amount;
-        this.category = category;
-        this.date = date;
-        this.note = note;
-        this.isScheduled = true;
-        this.frequency = frequency;
-        this.nextOccurrence = new Date(date.getTime() + frequency);
-    }
-
     //for not scheduled
     public String getName() {
         return name;
@@ -91,6 +79,18 @@ class Expense {
             return s + " <- [Occurs every " + this.getFrequency() + " milliseconds]";
         else
             return s;
+    }
+
+    //Constructor for scheduled
+    Expense(String name, double amount, String category, Date date, String note, long frequency) {
+        this.name = name;
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
+        this.isScheduled = true;
+        this.frequency = frequency;
+        this.nextOccurrence = new Date(date.getTime() + frequency);
     }
 
     public boolean needsUpdate()
