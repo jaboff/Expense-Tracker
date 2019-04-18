@@ -7,20 +7,15 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ExpenseList {
-    private static ArrayList<Expense> list = new ArrayList<Expense>();
-    private static ArrayList<Expense> filteredList = new ArrayList<Expense>();
+    private static ObservableList<Expense> list = FXCollections.observableArrayList();
+    private static ObservableList<Expense> filteredList = FXCollections.observableArrayList();
 
     public int getSize() {
         return list.size();
     }
 
     public boolean addExpense(Expense e) {
-        if (list.add(e)) {
-            return true;
-        } else {
-            list.ensureCapacity(2 * list.size());
-            return this.addExpense(e);
-        }
+        return list.add(e);
     }
 
     public boolean removeExpense(Expense e) {
@@ -69,11 +64,11 @@ public class ExpenseList {
         }
     };
 
-    public static ArrayList<Expense> getList() {
+    public static ObservableList<Expense> getList() {
         return list;
     }
 
-    public ArrayList<Expense> getFilteredList() {
+    public ObservableList<Expense> getFilteredList() {
         return filteredList;
     }
 
@@ -95,23 +90,19 @@ public class ExpenseList {
     }
 
     public void filterByCategory(String category) {
-        filteredList = new ArrayList<Expense>();
+        filteredList.clear();
         for (int i = 0; i < this.getSize(); i++) {
             if (this.getExpense(i).getCategory().equals(category)) {
-                while (!(filteredList.add(this.getList().get(i)))) {
-                    filteredList.ensureCapacity(filteredList.size() * 2);
-                }
+                filteredList.add(this.getList().get(i));
             }
         }
     }
 
     public void filterByDate(Date start, Date end) {
-        filteredList = new ArrayList<Expense>();
+        filteredList.clear();
         for (int i = 0; i < this.getSize(); i++) {
             if (this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
-                while (!(filteredList.add(this.getList().get(i)))) {
-                    filteredList.ensureCapacity(filteredList.size() * 2);
-                }
+                filteredList.add(this.getList().get(i));
             }
         }
     }
@@ -141,12 +132,10 @@ public class ExpenseList {
     }
 
     public void filterByRecurring(){
-        filteredList = new ArrayList<Expense>();
+        filteredList.clear();
         for (int i = 0; i < this.getSize(); i++) {
             if (this.getExpense(i).isScheduled()) {
-                while (!(filteredList.add(this.getList().get(i)))) {
-                    filteredList.ensureCapacity(filteredList.size() * 2);
-                }
+                filteredList.add(this.getList().get(i));
             }
         }
     }
