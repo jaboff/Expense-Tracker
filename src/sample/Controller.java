@@ -29,7 +29,6 @@ import javafx.scene.control.cell.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.net.URL;
-import java.sql.Date;
 
 public class Controller implements Initializable
 {
@@ -69,7 +68,7 @@ public class Controller implements Initializable
         ExpenseList exList = new ExpenseList();
         for (int i = 0; i < 10; i++)
         {
-            Expense randExpense = new Expense("Item"+i, i, "Grocery", Date.valueOf(LocalDate.now()), "A note");
+            Expense randExpense = new Expense("Item"+i, i, "Grocery", new Date(), "A note");
             exList.addExpense(randExpense);
         }
         view_tableView.setItems(ExpenseList.getList());
