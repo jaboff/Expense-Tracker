@@ -10,16 +10,23 @@ class Expense {
     private String category;
     private Date date;
     private String note;
+    private boolean isScheduled;
+    private long frequency;
+    private Date nextOccurrence;
 
     //Constructor
-    Expense(String n, double a, String c, Date d, String t) {
-        this.name = n;
-        this.amount = a;
-        this.category = c;
-        this.date = d;
-        this.note = t;
+    Expense(String name, double amount, String category, Date date, String note) {
+        this.name = name;
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
+        this.isScheduled = false;
+        this.frequency = 0;
+        this.nextOccurrence = null;
     }
 
+    //for not scheduled
     public String getName() {
         return name;
     }
@@ -58,5 +65,57 @@ class Expense {
 
     public Date getDate() {
         return date;
+    }
+
+    //VERY IMPORTANT FOR TELLING APART NORMAL vs SCHEDULED EXPENSE
+    public boolean isScheduled(){
+        return this.isScheduled;
+    }
+
+    @Override
+    public String toString() {
+        String s = "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ", " + this.getNote() + ")";
+        if(this.isScheduled())
+            return s + " <- [Occurs every " + this.getFrequency() + " milliseconds]";
+        else
+            return s;
+    }
+
+    //Constructor for scheduled
+    Expense(String name, double amount, String category, Date date, String note, long frequency) {
+        this.name = name;
+        this.amount = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
+        this.isScheduled = true;
+        this.frequency = frequency;
+        this.nextOccurrence = new Date(date.getTime() + frequency);
+    }
+
+    public boolean needsUpdate()
+    {
+        Date today = new Date();
+        return today.after(this.getNextOccurrence());
+    }
+
+    public Date getNextOccurrence() {
+        return nextOccurrence;
+    }
+
+    public void setNextOccurrence(Date nextOccurrence) {
+        this.nextOccurrence = nextOccurrence;
+    }
+
+    public long getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(long frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setScheduled(boolean scheduled) {
+        this.isScheduled = scheduled;
     }
 }
