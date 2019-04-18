@@ -11,6 +11,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
     <Tab text="Add">
       <content>
@@ -56,11 +57,11 @@
                      <children>
                         <TableView fx:id="view_tableView">
                           <columns>
-                            <TableColumn fx:id="view_nameColumn" prefWidth="75.0" text="Name" />
-                            <TableColumn fx:id="view_dateColumn" prefWidth="75.0" text="Date" />
-                              <TableColumn fx:id="view_categoryColumn" prefWidth="75.0" text="Category" />
-                              <TableColumn fx:id="view_amountColumn" prefWidth="100.0" text="Amount" />
-                              <TableColumn fx:id="view_noteColumn" prefWidth="259.0" text="Note" />
+                            <TableColumn fx:id="view_nameCol" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="view_dateCol" prefWidth="75.0" text="Date" />
+                              <TableColumn fx:id="view_categoryCol" prefWidth="75.0" text="Category" />
+                              <TableColumn fx:id="view_amountCol" prefWidth="100.0" text="Amount" />
+                              <TableColumn fx:id="view_noteCol" prefWidth="259.0" text="Note" />
                           </columns>
                         </TableView>
                      </children>
