@@ -30,28 +30,7 @@ public class Controller
     @FXML    private TableColumn<Expense, Double> view_amountCol;
     @FXML    private TableColumn<Expense, String> view_noteCol;
 
-    /*@Override
-    public void initialize() {
-        //set up the columns in the table
-        view_nameCol.setCellValueFactory(new PropertyValueFactory<Expense, String>("name"));
-        view_amountCol.setCellValueFactory(new PropertyValueFactory<Expense, Double>("amount"));
-        view_categoryCol.setCellValueFactory(new PropertyValueFactory<Expense, String>("category"));
-        view_dateCol.setCellFactory(new PropertyValueFactory<Expense, Date>("date"));
-        view_noteCol.setCellValueFactory(new PropertyValueFactory<Expense, String>("note"));
 
-        //load data
-        view_tableView.setItems(getExpenses(false));
-    } */
-
-    /* public ObservableList<Expense>  getExpenses(boolean getFiltered)
-    {
-        ObservableList<Expense> expenses = new ObservableArray<sample.Expense>();
-        if(getFiltered)
-            expenses.addAll(expenseList.getFilteredList());
-        else
-            expenses.addAll(expenseList.getList());
-        return expenses;
-    } */
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -96,4 +75,18 @@ public class Controller
         total.setText("$" + sumOfSums);
         expenseChart.getData().addAll(set1);
     }
+
+    private final ScheduledExecutorService scheduler = new ScheduledThreadPoolExecutor(1);
+
+    public void updateFiveSeconds(){
+        scheduleTester = 0;
+        final Runnable updater = new Runnable(){
+            public void run(){
+                //Stuff we want to happen every 5 seconds goes here
+                
+            };
+            final ScheduledFuture<?> updaterHandle = scheduler.scheduleAtFixedRate(updater, 5, 5, SECONDS);
+        }
+    }
 }
+
