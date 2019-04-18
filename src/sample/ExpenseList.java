@@ -148,6 +148,10 @@ public class ExpenseList {
         }
     }
 
+    /**
+      * Calculates the total cost of the user's expenses.
+      * @return The total dollar amount of expenses
+      */
     public double calculateTotalExpenses() {
         double total_cost = 0.00; //initializes total cost as $0.00
 
@@ -155,9 +159,30 @@ public class ExpenseList {
             total_cost += list.getExpense(i).getAmount(); //add each amount to the total cost
         }
 
-        return total_cost; //returns total amount
+        return total_cost;
     }
-    
+
+    /**
+      * Saves the user's data to an external file.
+      *
+      * @param fileName String representation of the file name
+      */
+    public void saveUserData(String fileName) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(new FileOutputStream(fileName)); //writes data to a file
+
+          for (int i = 0; i < list.getSize(); i++) {
+            System.out.println("Expense #" + (i+1) ": "); //prints what number the expense is in the list
+            pw.println(list.getExpense(i).getName()); //then prints its data
+            pw.println(list.getExpense(i).getAmount());
+            pw.println(list.getExpense(i).getCategory());
+            pw.println(list.getExpense(i).getDate());
+            pw.println(list.getExpense(i).getNote());
+            System.out.println();
+          }
+
+        pw.close();
+    }
+
 /*
     public static void main(String[] args) {
         Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
