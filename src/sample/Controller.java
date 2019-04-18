@@ -1,11 +1,15 @@
 package sample;
-
-import com.sun.java.swing.plaf.windows.TMSchema;
+import java.net.URL;
+import java.net.URL.*;
 import javafx.beans.Observable;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,7 +20,7 @@ import java.util.*;
 
 public class Controller
 {
-    ExpenseList expenseList = new ExpenseList();
+    private ExpenseList expenseList = new ExpenseList();
     //View Pane Stuff
     @FXML    private TableView<Expense> view_tableView;
     @FXML    private TableColumn<Expense, String> view_nameCol;
@@ -25,7 +29,7 @@ public class Controller
     @FXML    private TableColumn<Expense, Double> view_amountCol;
     @FXML    private TableColumn<Expense, String> view_noteCol;
 
-    @Override
+    /*@Override
     public void initialize() {
         //set up the columns in the table
         view_nameCol.setCellValueFactory(new PropertyValueFactory<Expense, String>("name"));
@@ -35,10 +39,10 @@ public class Controller
         view_noteCol.setCellValueFactory(new PropertyValueFactory<Expense, String>("note"));
 
         //load data
-        view_tableView.setItems(getExpenses());
-    }
+        view_tableView.setItems(getExpenses(false));
+    } */
 
-    public ObservableList<Expense>  getExpenses(boolean getFiltered)
+    /* public ObservableList<Expense>  getExpenses(boolean getFiltered)
     {
         ObservableList<Expense> expenses = new ObservableArray<sample.Expense>();
         if(getFiltered)
@@ -46,10 +50,45 @@ public class Controller
         else
             expenses.addAll(expenseList.getList());
         return expenses;
-    }
+    } */
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("Hello");
+    }
+
+    @FXML   private BarChart<?,?> expenseChart;
+    @FXML   private CategoryAxis x;
+    @FXML   private NumberAxis y;
+
+    @FXML public void initialize(){
+        setUpChartByCategory(false);
+    }
+
+    private void setUpChartByCategory(boolean filtered){
+        XYChart.Series set1 = new XYChart.Series();
+        Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
+        Expense e2 = new Expense("Banana", 2.99, "Food", new Date(), "Fruit Salad");
+        Expense e3 = new Expense("Watermelon", 4.99, "Food", new Date(), "Yummy Yummy");
+        Expense e4 = new Expense("Watermelon", 4.99, "Inorganic", new Date(), "Yummy Yummy");
+        expenseList.addExpense(e1);
+        expenseList.addExpense(e2);
+        expenseList.addExpense(e3);
+        expenseList.addExpense(e4);
+        ArrayList<String> categoriesAlreadyComputed = new ArrayList<>();
+        for(int o = 0; o < expenseList.getSize(); o++)
+        {
+            if (!(categoriesAlreadyComputed.contains(expenseList.getExpense(o).getCategory()))){
+                expenseList.filterByCategory(expenseList.getExpense(o).getCategory());
+                double sum = 0;
+                for (int m = 0; m < expenseList.getFilteredList().size(); m++){
+                    sum += expenseList.getFilteredList().get(m).getAmount();
+                }
+                set1.getData().add(new XYChart.Data(expenseList.getExpense(o).getCategory(), sum));
+                categoriesAlreadyComputed.add(expenseList.getExpense(o).getCategory());
+            }
+
+        }
+        expenseChart.getData().addAll(set1);
     }
 }
