@@ -77,23 +77,23 @@ public class Controller
         expenseList.addExpense(e2);
         expenseList.addExpense(e3);
         expenseList.addExpense(e4);
-        ArrayList<String> categoriesAlreadyComputed = new ArrayList<>();
-        double sumofsums = 0;
+        ArrayList<String> categoriesThatHaveAlreadyBeenComputed = new ArrayList<>();
+        double sumOfSums = 0;
         for(int o = 0; o < expenseList.getSize(); o++)
         {
-            if (!(categoriesAlreadyComputed.contains(expenseList.getExpense(o).getCategory()))){
+            if (!(categoriesThatHaveAlreadyBeenComputed.contains(expenseList.getExpense(o).getCategory()))){
                 expenseList.filterByCategory(expenseList.getExpense(o).getCategory());
                 double sum = 0;
                 for (int m = 0; m < expenseList.getFilteredList().size(); m++){
                     sum += expenseList.getFilteredList().get(m).getAmount();
                 }
-                sumofsums += sum;
+                sumOfSums += sum;
                 set1.getData().add(new XYChart.Data(expenseList.getExpense(o).getCategory(), sum));
-                categoriesAlreadyComputed.add(expenseList.getExpense(o).getCategory());
+                categoriesThatHaveAlreadyBeenComputed.add(expenseList.getExpense(o).getCategory());
             }
 
         }
-        total.setText("$" + sumofsums);
+        total.setText("$" + sumOfSums);
         expenseChart.getData().addAll(set1);
     }
 }
