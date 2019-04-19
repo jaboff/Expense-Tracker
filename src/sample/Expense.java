@@ -9,18 +9,18 @@ public class Expense {
     private double amount;
     private String category;
     private Date date;
-    private String note;
+    //private String note;
     private boolean isScheduled;
     private long frequency;
     private Date nextOccurrence;
 
     //Constructor
-    Expense(String name, double amount, String category, Date date, String note) {
+    public Expense(String name, double amount, String category, Date date, String note) {
         this.name = name;
         this.amount = amount;
         this.category = category;
         this.date = date;
-        this.note = note;
+        //this.note = note;
         this.isScheduled = false;
         this.frequency = 0;
         this.nextOccurrence = null;
@@ -51,13 +51,13 @@ public class Expense {
         this.category = category;
     }
 
-    public String getNote() {
+    /*public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
-    }
+    }*/
 
     public void setDate(Date date) {
         this.date = date;
@@ -74,7 +74,7 @@ public class Expense {
 
     @Override
     public String toString() {
-        String s = "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ", " + this.getNote() + ")";
+        String s = "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ")";
         if(this.isScheduled())
             return s + " <- [Occurs every " + this.getFrequency() + " milliseconds]";
         else
@@ -87,7 +87,7 @@ public class Expense {
         this.amount = amount;
         this.category = category;
         this.date = date;
-        this.note = note;
+        //this.note = note;
         this.isScheduled = true;
         this.frequency = frequency;
         this.nextOccurrence = new Date(date.getTime() + frequency);
