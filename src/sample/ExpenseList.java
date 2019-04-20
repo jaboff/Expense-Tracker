@@ -9,8 +9,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ExpenseList {
     private static ExpenseList expenseList = null;
-    private static ObservableList<Expense> list;
-    private static FilteredList<Expense> filteredList;
+    private static ObservableList<Expense> list = null;
+    private static FilteredList<Expense> filteredList = null;
 
     private ExpenseList()
     {
@@ -28,8 +28,10 @@ public class ExpenseList {
 
     public void clear()
     {
-        list.clear();
-        filteredList.clear();
+        if(list != null)
+            list.clear();
+        if(filteredList != null)
+            filteredList.clear();
     }
 
     public int getSize() {
