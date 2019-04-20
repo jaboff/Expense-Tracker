@@ -2,35 +2,13 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ExpenseList {
-    private static ExpenseList expenseList = null;
-    private static ObservableList<Expense> list;
-    private static FilteredList<Expense> filteredList;
-
-    private ExpenseList()
-    {
-        list = FXCollections.observableArrayList();
-        filteredList = null;
-    }
-
-    public static ExpenseList getExpenseList()
-    {
-        if(expenseList == null)
-            expenseList = new ExpenseList();
-
-        return expenseList;
-    }
-
-    public void clear()
-    {
-        list.clear();
-        filteredList.clear();
-    }
+    private static ObservableList<Expense> list = FXCollections.observableArrayList();
+    private static ObservableList<Expense> filteredList = FXCollections.observableArrayList();
 
     public int getSize() {
         return list.size();
