@@ -55,11 +55,11 @@
                <children>
                   <TableView fx:id="view_tableView" layoutY="30.0" prefHeight="284.0" prefWidth="600.0">
                     <columns>
-                      <TableColumn fx:id="view_nameColumn" prefWidth="125.0" text="Name" />
-                        <TableColumn fx:id="view_categoryColumn" minWidth="0.0" prefWidth="94.0" text="Category" />
-                        <TableColumn fx:id="view_amountColumn" prefWidth="197.0" text="Amount" />
-                      <TableColumn fx:id="view_dateColumn" prefWidth="115.0" text="Date" />
-                        <TableColumn fx:id="view_noteColumn" prefWidth="68.0" text="Recurring" />
+                      <TableColumn fx:id="view_nameColumn" prefWidth="183.0" text="Name" />
+                        <TableColumn fx:id="view_categoryColumn" minWidth="0.0" prefWidth="183.0" text="Category" />
+                        <TableColumn fx:id="view_amountColumn" prefWidth="73.0" text="Amount" />
+                      <TableColumn fx:id="view_dateColumn" prefWidth="92.0" text="Date" />
+                        <TableColumn fx:id="view_noteColumn" prefWidth="66.0" text="Recurring" />
                     </columns>
                   </TableView>
                   <HBox layoutY="313.0" prefHeight="55.0" prefWidth="600.0">
@@ -72,9 +72,36 @@
                      </children>
                   </HBox>
                   <Label layoutX="14.0" layoutY="6.0" text="Filter by: " />
-                  <ComboBox layoutX="72.0" layoutY="1.0" prefHeight="27.0" prefWidth="103.0" promptText="No Filter" />
-                  <DatePicker layoutX="208.0" layoutY="1.0" prefHeight="27.0" prefWidth="118.0" />
-                  <DatePicker layoutX="334.0" layoutY="1.0" prefHeight="27.0" prefWidth="117.0" />
+                  <ComboBox fx:id="view_filterCombo" layoutX="72.0" layoutY="1.0" onAction="#changeFilterOptions" prefHeight="27.0" prefWidth="103.0" promptText="No Filter" />
+                  <AnchorPane fx:id="view_costFilterPane" layoutX="195.0" prefHeight="29.0" prefWidth="284.0" visible="false">
+                     <children>
+                        <Label layoutX="128.0" layoutY="6.0" text="to" />
+                        <TextField fx:id="view_filterStartCost" layoutX="-6.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                        <TextField fx:id="view_filterEndCost" layoutX="147.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="view_dateFilterPane" layoutX="195.0" prefHeight="29.0" prefWidth="284.0" visible="false">
+                     <children>
+                        <DatePicker fx:id="view_filterStartDate" layoutX="-8.0" layoutY="1.0" prefHeight="27.0" prefWidth="126.0" promptText="view_startDateFilter" />
+                        <Label layoutX="128.0" layoutY="6.0" text="to" />
+                        <DatePicker fx:id="view_filterEndDate" layoutX="147.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" promptText="view_endDateFilter" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="view_nameFilterPane" layoutX="195.0" prefHeight="29.0" prefWidth="284.0" visible="false">
+                     <children>
+                        <TextField fx:id="view_filterName" layoutX="-6.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="view_categoryFilterPane" layoutX="194.0" prefHeight="29.0" prefWidth="284.0" visible="false">
+                     <children>
+                        <TextField fx:id="view_filterCategory" layoutX="-6.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="view_recurFilterPane" layoutX="193.0" prefHeight="29.0" prefWidth="284.0" visible="false">
+                     <children>
+                        <CheckBox fx:id="view_filterRecur" layoutY="5.0" mnemonicParsing="false" text="Recurring" />
+                     </children>
+                  </AnchorPane>
                </children></AnchorPane>
       </content>
     </Tab>
