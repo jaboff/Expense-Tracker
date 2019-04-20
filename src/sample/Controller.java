@@ -34,7 +34,7 @@ import java.net.URL;
 
 public class Controller implements Initializable
 {
-    ExpenseList expenseList = new ExpenseList();
+    ExpenseList expenseList = ExpenseList.getExpenseList();
 
     @FXML TableView<Expense> view_tableView;
     @FXML TableColumn<Expense, String> view_nameColumn;
@@ -110,11 +110,11 @@ public class Controller implements Initializable
 
         // Create a sample expense list and populate it with data
         //* Then add that sample data to the table for testing
-        ExpenseList exList = new ExpenseList();
+        expenseList.clear();
         for (int i = 0; i < 10; i++)
         {
             Expense randExpense = new Expense("Item"+i, i, "Grocery", new Date(), "A note");
-            exList.addExpense(randExpense);
+            expenseList.addExpense(randExpense);
         }
         //*/
 
