@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.time.LocalDate;
@@ -43,7 +44,20 @@ public class Controller implements Initializable
     @FXML TableColumn<Expense, String> view_noteColumn;
 
     @FXML ComboBox<String> view_filterCombo;
-    @FXML ComboBox<String> view_dateFilterPane;
+
+    @FXML AnchorPane view_dateFilterPane;
+    @FXML AnchorPane view_costFilterPane;
+    @FXML AnchorPane view_nameFilterPane;
+    @FXML AnchorPane view_categoryFilterPane;
+    @FXML AnchorPane view_recurFilterPane;
+
+    @FXML TextField view_filterStartCost;
+    @FXML TextField view_filterEndCost;
+    @FXML DatePicker view_filterStartDate;
+    @FXML DatePicker view_filterEndDate;
+    @FXML TextField view_filterName;
+    @FXML TextField view_filterCategory;
+    @FXML CheckBox view_filterRecur;
 
 
     // Graphics pane content
@@ -58,15 +72,13 @@ public class Controller implements Initializable
     {
         //* Set up options for controls
         ObservableList<String> filterOptions = FXCollections.observableArrayList();
-        filterOptions.add("No filter");
+        filterOptions.add("No Filter");
         filterOptions.add("Name");
         filterOptions.add("Category");
-        filterOptions.add("Amount");
+        filterOptions.add("Cost");
         filterOptions.add("Date");
         filterOptions.add("Recurring");
-         //*/
-        view_filterCombo = new ComboBox<>(filterOptions);
-        //"No filter", "Name", "Category", "Amount", "Date", "Recurring");
+        view_filterCombo.setItems(filterOptions);
 
 
         // Load expenseList from save data
@@ -119,7 +131,28 @@ public class Controller implements Initializable
     @FXML
     private void changeFilterOptions(ActionEvent event)
     {
-        System.out.println("Hello");
+        // Make all filter option panes to invisible
+        view_nameFilterPane.setVisible(false);
+        view_dateFilterPane.setVisible(false);
+        view_categoryFilterPane.setVisible(false);
+        view_costFilterPane.setVisible(false);
+        view_recurFilterPane.setVisible(false);
+
+        // Reveal only the one that has been chosen by the user
+        if(view_filterCombo.getValue().equals("No Filter"))
+            return;
+        if(view_filterCombo.getValue().equals("Date"))
+            view_dateFilterPane.setVisible(true);
+        if(view_filterCombo.getValue().equals("Cost"))
+            view_costFilterPane.setVisible(true);
+        if(view_filterCombo.getValue().equals("Name"))
+            view_nameFilterPane.setVisible(true);
+        if(view_filterCombo.getValue().equals("Recurring"))
+            view_recurFilterPane.setVisible(true);
+        if(view_filterCombo.getValue().equals("Category"))
+            view_categoryFilterPane.setVisible(true);
+
+        // Apply filter
     }
 
     @FXML public void initialize(){
