@@ -2,6 +2,7 @@ package sample;
 import java.net.URL;
 import java.net.URL.*;
 import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,18 +35,42 @@ public class Controller implements Initializable
 {
     ExpenseList expenseList = new ExpenseList();
 
+    @FXML TableView<Expense> view_tableView;
     @FXML TableColumn<Expense, String> view_nameColumn;
     @FXML TableColumn<Expense, Double> view_amountColumn;
     @FXML TableColumn<Expense, String> view_categoryColumn;
     @FXML TableColumn<Expense, String> view_dateColumn;
     @FXML TableColumn<Expense, String> view_noteColumn;
 
-    @FXML
-    private TableView<Expense> view_tableView;
+    @FXML ComboBox<String> view_filterCombo;
+    @FXML ComboBox<String> view_dateFilterPane;
+
+
+    // Graphics pane content
+    @FXML   private BarChart<?,?> expenseChart;
+    @FXML   private CategoryAxis x;
+    @FXML   private NumberAxis y;
+    @FXML   private Text total;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
     {
+        //* Set up options for controls
+        ObservableList<String> filterOptions = FXCollections.observableArrayList();
+        filterOptions.add("No filter");
+        filterOptions.add("Name");
+        filterOptions.add("Category");
+        filterOptions.add("Amount");
+        filterOptions.add("Date");
+        filterOptions.add("Recurring");
+         //*/
+        view_filterCombo = new ComboBox<>(filterOptions);
+        //"No filter", "Name", "Category", "Amount", "Date", "Recurring");
+
+
+        // Load expenseList from save data
+
         updateTable();
     }
 
@@ -79,9 +104,9 @@ public class Controller implements Initializable
             Expense randExpense = new Expense("Item"+i, i, "Grocery", new Date(), "A note");
             exList.addExpense(randExpense);
         }
+        //*/
 
         view_tableView.setItems(ExpenseList.getList());
-        //*/
     }
 
 
@@ -91,10 +116,11 @@ public class Controller implements Initializable
         System.out.println("Hello");
     }
 
-    @FXML   private BarChart<?,?> expenseChart;
-    @FXML   private CategoryAxis x;
-    @FXML   private NumberAxis y;
-    @FXML   private Text total;
+    @FXML
+    private void changeFilterOptions(ActionEvent event)
+    {
+        System.out.println("Hello");
+    }
 
     @FXML public void initialize(){
         setUpChartByCategory();
