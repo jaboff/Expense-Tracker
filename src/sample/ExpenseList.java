@@ -26,12 +26,12 @@ public class ExpenseList {
         return expenseList;
     }
 
-    public void clear()
-    {
-        if(list != null)
-            list.clear();
-        if(filteredList != null)
-            filteredList.clear();
+    public static ObservableList<Expense> getList() {
+        return list;
+    }
+
+    public ObservableList<Expense> getFilteredList() {
+        return filteredList;
     }
 
     public int getSize() {
@@ -42,62 +42,20 @@ public class ExpenseList {
         return list.add(e);
     }
 
+    public Expense getExpense(int index) {
+        return this.getList().get(index);
+    }
+
     public boolean removeExpense(Expense e) {
         return list.remove(e);
     }
 
-    public void sortByDate() {
-        Collections.sort(list, compareDate);
-    }
-
-    public void sortByDateR() {
-        Collections.sort(list, compareDate.reversed());
-    }
-
-    Comparator<Expense> compareDate = new Comparator<Expense>() {
-        public int compare(Expense e1, Expense e2) {
-            return e1.getDate().compareTo(e2.getDate());
-        }
-    };
-
-    public void sortByAmount() {
-        Collections.sort(list, compareAmount);
-    }
-
-    public void sortByAmountR() {
-        Collections.sort(list, compareAmount.reversed());
-    }
-
-    Comparator<Expense> compareAmount = new Comparator<Expense>() {
-        public int compare(Expense e1, Expense e2) {
-            return (new Double(e1.getAmount()).compareTo(new Double(e2.getAmount())));
-        }
-    };
-
-    public void sortByName() {
-        Collections.sort(list, compareName);
-    }
-
-    public void sortByNameR() {
-        Collections.sort(list, compareName.reversed());
-    }
-
-    Comparator<Expense> compareName = new Comparator<Expense>() {
-        public int compare(Expense e1, Expense e2) {
-            return e1.getName().compareTo(e2.getName());
-        }
-    };
-
-    public static ObservableList<Expense> getList() {
-        return list;
-    }
-
-    public ObservableList<Expense> getFilteredList() {
-        return filteredList;
-    }
-
-    public Expense getExpense(int index) {
-        return this.getList().get(index);
+    public void clear()
+    {
+        if(list != null)
+            list.clear();
+        if(filteredList != null)
+            filteredList.clear();
     }
 
     @Override
@@ -122,6 +80,7 @@ public class ExpenseList {
         }
     }
 
+
     public void filterByDate(Date start, Date end) {
         filteredList.clear();
         for (int i = 0; i < this.getSize(); i++) {
@@ -130,6 +89,58 @@ public class ExpenseList {
             }
         }
     }
+
+    public void filterByRecurring(){
+        filteredList.clear();
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).isScheduled()) {
+                filteredList.add(this.getList().get(i));
+            }
+        }
+    }
+
+    /*
+    public void sortByDate() {
+        Collections.sort(list, compareDate);
+    }
+
+    public void sortByDateR() {
+        Collections.sort(list, compareDate.reversed());
+    }
+
+    private Comparator<Expense> compareDate = new Comparator<Expense>() {
+        public int compare(Expense e1, Expense e2) {
+            return e1.getDate().compareTo(e2.getDate());
+        }
+    };
+
+    public void sortByAmount() {
+        Collections.sort(list, compareAmount);
+    }
+
+    public void sortByAmountR() {
+        Collections.sort(list, compareAmount.reversed());
+    }
+
+    private Comparator<Expense> compareAmount = new Comparator<Expense>() {
+        public int compare(Expense e1, Expense e2) {
+            return (new Double(e1.getAmount()).compareTo(new Double(e2.getAmount())));
+        }
+    };
+
+    public void sortByName() {
+        Collections.sort(list, compareName);
+    }
+
+    public void sortByNameR() {
+        Collections.sort(list, compareName.reversed());
+    }
+
+    private Comparator<Expense> compareName = new Comparator<Expense>() {
+        public int compare(Expense e1, Expense e2) {
+            return e1.getName().compareTo(e2.getName());
+        }
+    };
 
     public void fSortByName() {
         Collections.sort(filteredList, compareName);
@@ -155,14 +166,7 @@ public class ExpenseList {
         Collections.sort(filteredList, compareAmount.reversed());
     }
 
-    public void filterByRecurring(){
-        filteredList.clear();
-        for (int i = 0; i < this.getSize(); i++) {
-            if (this.getExpense(i).isScheduled()) {
-                filteredList.add(this.getList().get(i));
-            }
-        }
-    }
+
 
     public void addToBothLists(Expense e) {
         list.add(e);
