@@ -113,7 +113,7 @@ public class Controller implements Initializable
         expenseList.clear();
         for (int i = 0; i < 10; i++)
         {
-            Expense randExpense = new Expense("Item"+i, i, "Grocery", new Date(), "A note");
+            Expense randExpense = new Expense("Item"+i, i, "Grocery " + i, new Date(), "A note");
             expenseList.addExpense(randExpense);
         }
         //*/
@@ -139,20 +139,35 @@ public class Controller implements Initializable
         view_recurFilterPane.setVisible(false);
 
         // Reveal only the one that has been chosen by the user
-        if(view_filterCombo.getValue().equals("No Filter"))
+        if(view_filterCombo.getValue().equals("No Filter")) {
+            expenseList.clearFilter();
+            view_tableView.setItems(ExpenseList.getList());
             return;
-        if(view_filterCombo.getValue().equals("Date"))
+        }
+        if(view_filterCombo.getValue().equals("Date")) {
             view_dateFilterPane.setVisible(true);
-        if(view_filterCombo.getValue().equals("Cost"))
+        }
+        if(view_filterCombo.getValue().equals("Cost")) {
             view_costFilterPane.setVisible(true);
-        if(view_filterCombo.getValue().equals("Name"))
+        }
+        if(view_filterCombo.getValue().equals("Name")){
             view_nameFilterPane.setVisible(true);
-        if(view_filterCombo.getValue().equals("Recurring"))
+        }
+        if(view_filterCombo.getValue().equals("Recurring")){
             view_recurFilterPane.setVisible(true);
-        if(view_filterCombo.getValue().equals("Category"))
+        }
+        if(view_filterCombo.getValue().equals("Category")){
             view_categoryFilterPane.setVisible(true);
+        }
+    }
 
-        // Apply filter
+    @FXML
+    private void applyCategoryFilter(ActionEvent event)
+    {
+        System.out.println(ExpenseList.getList().toString());
+        expenseList.filterByCategory(view_filterCategory.getText());
+        System.out.println(expenseList.getFilteredList().toString());
+        view_tableView.setItems(expenseList.getFilteredList());
     }
 
     @FXML public void initialize(){

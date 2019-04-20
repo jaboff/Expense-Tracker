@@ -7,17 +7,26 @@ import javafx.collections.transformation.FilteredList;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ExpenseList {
+public class ExpenseList
+{
+    // The singleton of expense list
     private static ExpenseList expenseList = null;
+
+    // list is the main underlying data structure for expense list
     private static ObservableList<Expense> list = null;
+    // filteredList is a subset of list with only the Expenses the user is interested in
     private static FilteredList<Expense> filteredList = null;
+    private boolean isFiltered;
 
     private ExpenseList()
     {
         list = FXCollections.observableArrayList();
         filteredList = null;
+        isFiltered = false;
     }
 
+    // There can be only one active expense list in the program
+    // This will be implemented as a singleton
     public static ExpenseList getExpenseList()
     {
         if(expenseList == null)
@@ -34,8 +43,12 @@ public class ExpenseList {
         return filteredList;
     }
 
+
     public int getSize() {
-        return list.size();
+        if(isFiltered)
+            return filteredList.size();
+        else
+            return list.size();
     }
 
     public boolean addExpense(Expense e) {
@@ -54,8 +67,16 @@ public class ExpenseList {
     {
         if(list != null)
             list.clear();
-        if(filteredList != null)
-            filteredList.clear();
+        if(filteredList != null) {
+            filteredList = null;
+            isFiltered = false;
+        }
+    }
+
+    public void clearFilter()
+    {
+        filteredList = null;
+        isFiltered = false;
     }
 
     @Override
@@ -72,31 +93,52 @@ public class ExpenseList {
     }
 
     public void filterByCategory(String category) {
-        filteredList.clear();
-        for (int i = 0; i < this.getSize(); i++) {
-            if (this.getExpense(i).getCategory().equals(category)) {
-                filteredList.add(this.getList().get(i));
-            }
-        }
+        filteredList = new FilteredList<>(list, p -> true);
+        filteredList.setPredicate(expense -> {
+            if(expense.getCategory().contains(category))
+                return true;
+            else
+                return false;
+        });
+        isFiltered = true;
     }
 
 
     public void filterByDate(Date start, Date end) {
+        filteredList = new FilteredList<>(list, p -> true);
+        filteredList.setPredicate(expense -> {
+            if(expense.getDate().after(start) && expense.getDate().before(end))
+                return true;
+            else
+                return false;
+        });
+        isFiltered = true;
+
+        /*
         filteredList.clear();
         for (int i = 0; i < this.getSize(); i++) {
             if (this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
                 filteredList.add(this.getList().get(i));
             }
-        }
+        }*/
     }
 
-    public void filterByRecurring(){
+    public void filterByRecurring(){/*
+        filteredList = new FilteredList<>(list, p -> true);
+        filteredList.setPredicate(expense -> {
+            if(expense.getDate().after(start) && expense.getDate().before(end))
+                return true;
+            else
+                return false;
+        });
+        isFiltered = true;
+        /*
         filteredList.clear();
-        for (int i = 0; i < this.getSize(); i++) {
+        for (int i = 0; i < getSize(); i++) {
             if (this.getExpense(i).isScheduled()) {
-                filteredList.add(this.getList().get(i));
+                filteredList.add(getList().get(i));
             }
-        }
+        }*/
     }
 
     /*

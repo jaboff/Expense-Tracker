@@ -94,7 +94,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="view_categoryFilterPane" layoutX="194.0" prefHeight="29.0" prefWidth="284.0" visible="false">
                      <children>
-                        <TextField fx:id="view_filterCategory" layoutX="-6.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                        <TextField fx:id="view_filterCategory" layoutX="-6.0" layoutY="1.0" onAction="#applyCategoryFilter" prefHeight="27.0" prefWidth="125.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="view_recurFilterPane" layoutX="193.0" prefHeight="29.0" prefWidth="284.0" visible="false">
