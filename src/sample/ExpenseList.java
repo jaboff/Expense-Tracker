@@ -183,6 +183,29 @@ public class ExpenseList {
         pw.close();
     }
 
+    /**
+      * Loads the user's data from an external file.
+      *
+      * @param fileName String representation of the file name
+      */
+    public void loadUserData(String fileName) throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader("file.txt")) :
+
+        try {
+          StringBuilder sb = new StringBuilder();
+
+          while (line != null) {
+            sb.append(line);
+            sb.append(System.lineSeparator());
+            line = br.readLine();
+          }
+
+          String everything = sb.toString();
+        } finally {
+          br.close();
+        }
+      }
+
 /*
     public static void main(String[] args) {
         Expense e1 = new Expense("Apple", 1.99, "Food", new Date(), "Golden Delicious");
