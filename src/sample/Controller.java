@@ -375,7 +375,6 @@ public class Controller implements Initializable
         add_categoryInput.clear();
         add_costInput.clear();
         add_dateInput.getEditor().clear();
-        add_stopDateInput.getEditor().clear();
         add_frequencyInput.clear();
     }
 
