@@ -92,6 +92,17 @@ public class ExpenseList
         return retS;
     }
 
+    public void filterByName(String name) {
+        filteredList = new FilteredList<>(list, p -> true);
+        filteredList.setPredicate(expense -> {
+            if(expense.getName().contains(name))
+                return true;
+            else
+                return false;
+        });
+        isFiltered = true;
+    }
+
     public void filterByCategory(String category) {
         filteredList = new FilteredList<>(list, p -> true);
         filteredList.setPredicate(expense -> {
@@ -123,22 +134,43 @@ public class ExpenseList
         }*/
     }
 
-    public void filterByRecurring(){/*
+    public void filterByCost(double min, double max) {
         filteredList = new FilteredList<>(list, p -> true);
         filteredList.setPredicate(expense -> {
-            if(expense.getDate().after(start) && expense.getDate().before(end))
+            if(expense.getCost() >= min && expense.getCost() <= max)
                 return true;
             else
                 return false;
         });
         isFiltered = true;
+
+        /*
+        filteredList.clear();
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getExpense(i).getDate().after(start) && this.getExpense(i).getDate().before(end)) {
+                filteredList.add(this.getList().get(i));
+            }
+        }*/
+    }
+
+    public void filterByRecurring(boolean recurEnabled) {
+        filteredList = new FilteredList<>(list, p -> true);
+        filteredList.setPredicate(expense -> {
+            // The user may wish to see only items that recur OR items that don't
+            if(recurEnabled)
+                return expense.isScheduled();
+            else
+                return !expense.isScheduled();
+        });
+        isFiltered = true;
+
         /*
         filteredList.clear();
         for (int i = 0; i < getSize(); i++) {
             if (this.getExpense(i).isScheduled()) {
                 filteredList.add(getList().get(i));
             }
-        }*/
+        }//*/
     }
 
     /*

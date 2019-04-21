@@ -6,7 +6,7 @@ import java.lang.*;
 public class Expense {
 
     private String name;
-    private double amount;
+    private double cost;
     private String category;
     private Date date;
     //private String note;
@@ -15,9 +15,9 @@ public class Expense {
     private Date nextOccurrence;
 
     //Constructor
-    public Expense(String name, double amount, String category, Date date, String note) {
+    public Expense(String name, double cost, String category, Date date, String note) {
         this.name = name;
-        this.amount = amount;
+        this.cost = cost;
         this.category = category;
         this.date = date;
         //this.note = note;
@@ -35,12 +35,12 @@ public class Expense {
         this.name = name;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getCost() {
+        return cost;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setCost(double amount) {
+        this.cost = cost;
     }
 
     public String getCategory() {
@@ -74,7 +74,7 @@ public class Expense {
 
     @Override
     public String toString() {
-        String s = "(" + this.getName() + ", $" + this.getAmount() + ", " + this.getCategory() + ", " + this.getDate().toString() + ")";
+        String s = "(" + this.getName() + ", $" + this.getCost() + ", " + this.getCategory() + ", " + this.getDate().toString() + ")";
         if(this.isScheduled())
             return s + " <- [Occurs every " + this.getFrequency() + " milliseconds]";
         else
@@ -84,7 +84,7 @@ public class Expense {
     //Constructor for scheduled
     Expense(String name, double amount, String category, Date date, String note, long frequency) {
         this.name = name;
-        this.amount = amount;
+        this.cost = amount;
         this.category = category;
         this.date = date;
         //this.note = note;

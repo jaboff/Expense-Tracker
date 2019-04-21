@@ -53,7 +53,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TableView fx:id="view_tableView" layoutY="30.0" prefHeight="284.0" prefWidth="600.0">
+                  <TableView fx:id="view_tableView" editable="true" layoutY="30.0" prefHeight="284.0" prefWidth="600.0">
                     <columns>
                       <TableColumn fx:id="view_nameColumn" prefWidth="183.0" text="Name" />
                         <TableColumn fx:id="view_categoryColumn" minWidth="0.0" prefWidth="183.0" text="Category" />
@@ -76,20 +76,20 @@
                   <AnchorPane fx:id="view_costFilterPane" layoutX="195.0" prefHeight="29.0" prefWidth="284.0" visible="false">
                      <children>
                         <Label layoutX="128.0" layoutY="6.0" text="to" />
-                        <TextField fx:id="view_filterStartCost" layoutX="-6.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
-                        <TextField fx:id="view_filterEndCost" layoutX="147.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                        <TextField fx:id="view_filterStartCost" layoutX="-6.0" layoutY="1.0" onAction="#applyCostFilter" prefHeight="27.0" prefWidth="125.0" />
+                        <TextField fx:id="view_filterEndCost" layoutX="147.0" layoutY="1.0" onAction="#applyCostFilter" prefHeight="27.0" prefWidth="125.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="view_dateFilterPane" layoutX="195.0" prefHeight="29.0" prefWidth="284.0" visible="false">
                      <children>
-                        <DatePicker fx:id="view_filterStartDate" layoutX="-8.0" layoutY="1.0" prefHeight="27.0" prefWidth="126.0" promptText="view_startDateFilter" />
+                        <DatePicker fx:id="view_filterStartDate" layoutX="-8.0" layoutY="1.0" onAction="#applyDateFilter" prefHeight="27.0" prefWidth="126.0" promptText="view_startDateFilter" />
                         <Label layoutX="128.0" layoutY="6.0" text="to" />
-                        <DatePicker fx:id="view_filterEndDate" layoutX="147.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" promptText="view_endDateFilter" />
+                        <DatePicker fx:id="view_filterEndDate" layoutX="147.0" layoutY="1.0" onAction="#applyDateFilter" prefHeight="27.0" prefWidth="125.0" promptText="view_endDateFilter" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="view_nameFilterPane" layoutX="195.0" prefHeight="29.0" prefWidth="284.0" visible="false">
                      <children>
-                        <TextField fx:id="view_filterName" layoutX="-6.0" layoutY="1.0" prefHeight="27.0" prefWidth="125.0" />
+                        <TextField fx:id="view_filterName" layoutX="-6.0" layoutY="1.0" onAction="#applyNameFilter" prefHeight="27.0" prefWidth="125.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="view_categoryFilterPane" layoutX="194.0" prefHeight="29.0" prefWidth="284.0" visible="false">
@@ -99,7 +99,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="view_recurFilterPane" layoutX="193.0" prefHeight="29.0" prefWidth="284.0" visible="false">
                      <children>
-                        <CheckBox fx:id="view_filterRecur" layoutY="5.0" mnemonicParsing="false" text="Recurring" />
+                        <CheckBox fx:id="view_filterRecur" layoutY="5.0" mnemonicParsing="false" onAction="#applyRecurFilter" text="Recurring" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>

@@ -99,7 +99,7 @@ public class Controller implements Initializable
         // Set the factory values for each entry
         // These will ensure that the each field in an expense will map to the correct column
         view_nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        view_amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        view_amountColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
         view_categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         view_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         view_noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
@@ -164,9 +164,67 @@ public class Controller implements Initializable
     @FXML
     private void applyCategoryFilter(ActionEvent event)
     {
-        System.out.println(ExpenseList.getList().toString());
+        // Get input from user, then user it as the filter
         expenseList.filterByCategory(view_filterCategory.getText());
         System.out.println(expenseList.getFilteredList().toString());
+
+        // Apply filtered list to the table view
+        view_tableView.setItems(expenseList.getFilteredList());
+    }
+
+    @FXML
+    private void applyDateFilter(ActionEvent event)
+    {
+        // Only apply filter if the user has picked both start and end dates
+        if(view_filterStartDate == null && view_filterEndDate == null)
+            return;
+
+        // Get the start and end dates from the datepicker control, then filter with them
+        Date start = java.sql.Date.valueOf(view_filterStartDate.getValue());
+        Date end = java.sql.Date.valueOf(view_filterEndDate.getValue());
+        expenseList.filterByDate(start, end);
+        System.out.println(expenseList.getFilteredList().toString());
+
+        // Apply filtered list to the table view
+        view_tableView.setItems(expenseList.getFilteredList());
+    }
+
+    @FXML
+    private void applyCostFilter(ActionEvent event)
+    {
+        // Only apply filter if the user has picked both start and end cost
+        if(view_filterStartCost == null && view_filterEndCost == null)
+            return;
+
+        // Get the min and max costs from the user, then filter with them
+        double min = Double.parseDouble(view_filterStartCost.getText());
+        double max = Double.parseDouble(view_filterEndCost.getText());
+        expenseList.filterByCost(min, max);
+        System.out.println(expenseList.getFilteredList().toString());
+
+        // Apply filtered list to the table view
+        view_tableView.setItems(expenseList.getFilteredList());
+    }
+
+    @FXML
+    private void applyRecurFilter(ActionEvent event)
+    {
+        // Get input from user, then user it as the filter
+        expenseList.filterByRecurring(view_filterRecur.isSelected());
+        System.out.println(expenseList.getFilteredList().toString());
+
+        // Apply filtered list to the table view
+        view_tableView.setItems(expenseList.getFilteredList());
+    }
+
+    @FXML
+    private void applyNameFilter(ActionEvent event)
+    {
+        // Get input from user, then user it as the filter
+        expenseList.filterByName(view_filterName.getText());
+        System.out.println(expenseList.getFilteredList().toString());
+
+        // Apply filtered list to the table view
         view_tableView.setItems(expenseList.getFilteredList());
     }
 
@@ -192,7 +250,7 @@ public class Controller implements Initializable
                 expenseList.filterByCategory(expenseList.getExpense(o).getCategory());
                 double sum = 0;
                 for (int m = 0; m < expenseList.getFilteredList().size(); m++){
-                    sum += expenseList.getFilteredList().get(m).getAmount();
+                    sum += expenseList.getFilteredList().get(m).getCost();
                 }
                 sumOfSums += sum;
                 set1.getData().add(new XYChart.Data(expenseList.getExpense(o).getCategory(), sum));
