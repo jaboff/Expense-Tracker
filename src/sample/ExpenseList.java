@@ -35,7 +35,7 @@ public class ExpenseList
         return expenseList;
     }
 
-    public static ObservableList<Expense> getList() {
+    public ObservableList<Expense> getList() {
         return list;
     }
 

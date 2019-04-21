@@ -9,7 +9,7 @@ public class Expense {
     private double cost;
     private String category;
     private Date date;
-    //private String note;
+    private String note;
     private boolean isScheduled;
     private long frequency;
     private Date nextOccurrence;
@@ -20,17 +20,28 @@ public class Expense {
         this.cost = cost;
         this.category = category;
         this.date = date;
-        //this.note = note;
+        this.note = note;
         this.isScheduled = false;
         this.frequency = 0;
         this.nextOccurrence = null;
+    }
+
+    //Constructor for scheduled
+    public Expense(String name, double amount, String category, Date date, String note, long frequency) {
+        this.name = name;
+        this.cost = amount;
+        this.category = category;
+        this.date = date;
+        this.note = note;
+        this.isScheduled = true;
+        this.frequency = frequency;
+        this.nextOccurrence = new Date(date.getTime() + frequency);
     }
 
     //for not scheduled
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -38,31 +49,27 @@ public class Expense {
     public double getCost() {
         return cost;
     }
-
     public void setCost(double amount) {
-        this.cost = cost;
+        this.cost = amount;
     }
 
     public String getCategory() {
         return category;
     }
-
     public void setCategory(String category) {
         this.category = category;
     }
 
-    /*public String getNote() {
+    public String getNote() {
         return note;
     }
-
     public void setNote(String note) {
         this.note = note;
-    }*/
+    }
 
     public void setDate(Date date) {
         this.date = date;
     }
-
     public Date getDate() {
         return date;
     }
@@ -79,18 +86,6 @@ public class Expense {
             return s + " <- [Occurs every " + this.getFrequency() + " milliseconds]";
         else
             return s;
-    }
-
-    //Constructor for scheduled
-    Expense(String name, double amount, String category, Date date, String note, long frequency) {
-        this.name = name;
-        this.cost = amount;
-        this.category = category;
-        this.date = date;
-        //this.note = note;
-        this.isScheduled = true;
-        this.frequency = frequency;
-        this.nextOccurrence = new Date(date.getTime() + frequency);
     }
 
     public boolean needsUpdate()
