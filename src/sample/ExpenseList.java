@@ -189,22 +189,13 @@ public class ExpenseList {
       * @param fileName String representation of the file name
       */
     public void loadUserData(String fileName) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(new FileReader("file.txt")) :
+      FileInputStream input = new FileInputStream("filename.txt");
+      ObjectInputStream output = new ObjectInputStream(input);
+      ExpenseList list = (ExpenseList) output.readObject();
+      output.close();
+    }
 
-        try {
-          StringBuilder sb = new StringBuilder();
 
-          while (line != null) {
-            sb.append(line);
-            sb.append(System.lineSeparator());
-            line = br.readLine();
-          }
-
-          String everything = sb.toString();
-        } finally {
-          br.close();
-        }
-      }
 
 /*
     public static void main(String[] args) {
