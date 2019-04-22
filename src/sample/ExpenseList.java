@@ -3,7 +3,7 @@ package sample;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ExpenseList {
+public class ExpenseList implements Serializable {
     private static ArrayList<Expense> list = new ArrayList<Expense>();
     private static ArrayList<Expense> filteredList = new ArrayList<Expense>();
 
