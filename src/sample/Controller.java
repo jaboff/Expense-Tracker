@@ -56,12 +56,19 @@ public class Controller implements Initializable
         filterOptions.add("Recurring");
         view_filterCombo.setItems(filterOptions);
 
+        // Set the factory values for each entry
+        // These will ensure that the each field in an expense will map to the correct column
+        view_nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        view_amountColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        view_categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        view_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        view_noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
 
-        // Load expenseList from save data
+
+        // Prompt for user/password
+        // Load the appropriate expenseList from save data
 
         updateTable();
-
-        setUpChartByCategory();
 
     }
 
@@ -99,14 +106,6 @@ public class Controller implements Initializable
         TableColumn<Expense, String> dateCol = new TableColumn<Expense, String>("Date");
         //*/
 
-        // Set the factory values for each entry
-        // These will ensure that the each field in an expense will map to the correct column
-        view_nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        view_amountColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        view_categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        view_dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        view_noteColumn.setCellValueFactory(new PropertyValueFactory<>("note"));
-
         // Display the column on the table
         //view_tableView.getColumns().addAll(nameCol, amountCol, categoryCol, dateCol);
 
@@ -121,7 +120,12 @@ public class Controller implements Initializable
         }
         //*/
 
-        view_tableView.setItems(expenseList.getList());
+        if(expenseList.getFilteredList() != null)
+            view_tableView.setItems(expenseList.getFilteredList());
+        else
+            view_tableView.setItems(expenseList.getList());
+
+        setUpChartByCategory();
     }
 
 
@@ -161,9 +165,8 @@ public class Controller implements Initializable
     @FXML
     private void applyCategoryFilter(ActionEvent event)
     {
-        // Get input from user, then user it as the filter
+        // Get input from user, then use it as the filter
         expenseList.filterByCategory(view_filterCategory.getText());
-        System.out.println(expenseList.getFilteredList().toString());
 
         // Apply filtered list to the table view
         view_tableView.setItems(expenseList.getFilteredList());
@@ -180,10 +183,9 @@ public class Controller implements Initializable
         Date start = java.sql.Date.valueOf(view_filterStartDate.getValue());
         Date end = java.sql.Date.valueOf(view_filterEndDate.getValue());
         expenseList.filterByDate(start, end);
-        System.out.println(expenseList.getFilteredList().toString());
 
         // Apply filtered list to the table view
-        view_tableView.setItems(expenseList.getFilteredList());
+        updateTable();
     }
 
     @FXML
@@ -197,10 +199,9 @@ public class Controller implements Initializable
         double min = Double.parseDouble(view_filterStartCost.getText());
         double max = Double.parseDouble(view_filterEndCost.getText());
         expenseList.filterByCost(min, max);
-        System.out.println(expenseList.getFilteredList().toString());
 
         // Apply filtered list to the table view
-        view_tableView.setItems(expenseList.getFilteredList());
+        updateTable();
     }
 
     @FXML
@@ -208,10 +209,9 @@ public class Controller implements Initializable
     {
         // Get input from user, then user it as the filter
         expenseList.filterByRecurring(view_filterRecur.isSelected());
-        System.out.println(expenseList.getFilteredList().toString());
 
         // Apply filtered list to the table view
-        view_tableView.setItems(expenseList.getFilteredList());
+        updateTable();
     }
 
     @FXML
@@ -219,10 +219,9 @@ public class Controller implements Initializable
     {
         // Get input from user, then user it as the filter
         expenseList.filterByName(view_filterName.getText());
-        System.out.println(expenseList.getFilteredList().toString());
 
         // Apply filtered list to the table view
-        view_tableView.setItems(expenseList.getFilteredList());
+        updateTable();
     }
     //*/ End Michael
 
